@@ -1,0 +1,4 @@
+/dist/
+/nbdproxy
+/*.test
+/coverage.out

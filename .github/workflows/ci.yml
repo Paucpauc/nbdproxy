@@ -1,0 +1,40 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-24.04, macos-14]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24.x'
+          cache: false
+      - run: test -z "$(gofmt -l *.go)"
+      - run: go vet ./...
+      - run: go test -race -coverprofile=coverage.out ./...
+      - run: go test -run='^$' -fuzz=FuzzExportName -fuzztime=10s
+      - run: ./scripts/release.sh test
+  kernel:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24.x'
+          cache: false
+      - run: |
+          sudo apt-get update
+          sudo apt-get install -y nbd-client linux-modules-extra-$(uname -r)
+          sudo modprobe nbd nbds_max=4 max_part=0
+          nbd-client -V
+          uname -r
+      - run: go test -c -o /tmp/nbdproxy.test
+      - run: sudo env NBDPROXY_KERNEL_TEST=1 /tmp/nbdproxy.test -test.v -test.run '^TestLinuxKernelRestart$' -test.timeout 60s
