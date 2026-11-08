@@ -2,3 +2,4 @@
 /nbdproxy
 /*.test
 /coverage.out
+/nbdproxy-linux-amd64
