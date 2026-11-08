@@ -117,12 +117,13 @@ Le test écrit sur `/dev/nbd0`. Il doit être activé explicitement et est ignor
 ## Publications
 
 ```sh
+go install github.com/goreleaser/nfpm/v2/cmd/nfpm@v2.41.0
 ./scripts/release.sh v0.1.0
 ```
 
-Produit dans `dist/` des archives pour Linux amd64/arm64 et macOS amd64/arm64, chacune contenant le binaire autonome, la documentation, la licence et l'unité systemd, ainsi que des sommes de contrôle SHA-256.
+Produit dans `dist/` des archives pour Linux amd64/arm64 et macOS amd64/arm64, chacune contenant le binaire autonome, la documentation, la licence et l'unité systemd, des paquets DEB et RPM pour Linux amd64/arm64 et des sommes de contrôle SHA-256 de tous les artefacts.
 
-Après avoir envoyé ce dépôt sur GitHub, l'envoi d'un tag `v*` déclenche le workflow de publication. Il exécute vet et les tests, construit les archives et crée un **brouillon de GitHub Release** avec des notes générées automatiquement. Vérifiez-le et publiez-le depuis GitHub. Les workflows de CI et de publication n'ont que des permissions de lecture, sauf contents:write pour la tâche de publication.
+Après avoir envoyé ce dépôt sur GitHub, l'envoi d'un tag `v*` déclenche le workflow de publication. Il exécute vet et les tests, construit les archives et les paquets et publie immédiatement une GitHub Release avec des notes générées automatiquement. Les workflows de CI et de publication n'ont que des permissions de lecture, sauf contents:write pour la tâche de publication.
 
 Référence du protocole : [spécification NBD](https://github.com/NetworkBlockDevice/nbd/blob/master/doc/proto.md).
 Licence : MIT.

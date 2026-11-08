@@ -15,8 +15,10 @@ jobs:
           cache: false
       - run: go vet ./...
       - run: go test -race ./...
+      - name: Install package builder
+        run: go install github.com/goreleaser/nfpm/v2/cmd/nfpm@v2.41.0
       - run: ./scripts/release.sh "$GITHUB_REF_NAME"
-      - name: Publish archives and checksums
+      - name: Publish archives, packages and checksums
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" dist/* --verify-tag --generate-notes --draft
+        run: gh release create "$GITHUB_REF_NAME" dist/* --verify-tag --generate-notes

@@ -117,12 +117,13 @@ sudo env NBDPROXY_KERNEL_TEST=1 /tmp/nbdproxy.test \
 ## Релизы
 
 ```sh
+go install github.com/goreleaser/nfpm/v2/cmd/nfpm@v2.41.0
 ./scripts/release.sh v0.1.0
 ```
 
-Создаёт архивы для Linux amd64/arm64 и macOS amd64/arm64 с автономным бинарным файлом, документацией, лицензией и юнитом systemd, а также контрольные суммы SHA-256 в `dist/`.
+Создаёт архивы для Linux amd64/arm64 и macOS amd64/arm64 с автономным бинарным файлом, документацией, лицензией и юнитом systemd, DEB и RPM пакеты для Linux amd64/arm64, а также контрольные суммы SHA-256 всех артефактов в `dist/`.
 
-После отправки репозитория на GitHub отправка тега `v*` запускает релизный workflow. Он выполняет vet и тесты, собирает архивы и создаёт **черновик GitHub Release** с автоматически сформированными примечаниями. Проверьте его и опубликуйте через GitHub. CI и релизные workflow имеют только права чтения, кроме contents:write у релизного задания.
+После отправки репозитория на GitHub отправка тега `v*` запускает релизный workflow. Он выполняет vet и тесты, собирает архивы и пакеты и сразу публикует GitHub Release с автоматически сформированными примечаниями. CI и релизные workflow имеют только права чтения, кроме contents:write у релизного задания.
 
 Описание протокола: [спецификация NBD](https://github.com/NetworkBlockDevice/nbd/blob/master/doc/proto.md).
 Лицензия: MIT.

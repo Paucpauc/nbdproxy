@@ -176,15 +176,19 @@ The real-kernel test cannot run on macOS.
 ## Releases
 
 ```sh
+go install github.com/goreleaser/nfpm/v2/cmd/nfpm@v2.41.0
 ./scripts/release.sh v0.1.0
 ```
 
 Produces static Linux amd64/arm64 and macOS amd64/arm64 archives, each with the
-binary, documentation, license and systemd unit, plus SHA-256 checksums in `dist/`.
+binary, documentation, license and systemd unit, plus DEB and RPM packages for
+Linux amd64/arm64 and SHA-256 checksums for all artifacts in `dist/`.
+Packages install the binary in `/usr/bin` and the unit in `/usr/lib/systemd/system`;
+configure the upstream with a systemd override before enabling the service.
 
 After pushing this repository to GitHub, pushing a `v*` tag triggers the release
-workflow. It vets and tests, builds the archives and creates a **draft GitHub
-Release** with generated notes. Review it and publish from GitHub. CI and release
+workflow. It vets and tests, builds the archives and packages, and immediately
+publishes a GitHub Release with generated notes. CI and release
 workflows have only read permissions except the release job's contents:write.
 
 Protocol reference: [NBD specification](https://github.com/NetworkBlockDevice/nbd/blob/master/doc/proto.md).

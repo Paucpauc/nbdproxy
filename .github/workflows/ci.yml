@@ -20,7 +20,9 @@ jobs:
       - run: go vet ./...
       - run: go test -race -coverprofile=coverage.out ./...
       - run: go test -run='^$' -fuzz=FuzzExportName -fuzztime=10s
-      - run: ./scripts/release.sh test
+      - name: Install package builder
+        run: go install github.com/goreleaser/nfpm/v2/cmd/nfpm@v2.41.0
+      - run: ./scripts/release.sh v0.0.0-test
   kernel:
     runs-on: ubuntu-24.04
     timeout-minutes: 10

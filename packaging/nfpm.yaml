@@ -1,0 +1,16 @@
+name: nbdproxy
+arch: ${PACKAGE_ARCH}
+platform: linux
+version: ${PACKAGE_VERSION}
+maintainer: nbdproxy contributors
+description: Persistent local NBD reconnect proxy
+license: MIT
+contents:
+  - src: "@PACKAGE_STAGE@/nbdproxy"
+    dst: /usr/bin/nbdproxy
+  - src: "@PACKAGE_STAGE@/nbdproxy.service"
+    dst: /usr/lib/systemd/system/nbdproxy.service
+  - src: README*.md
+    dst: /usr/share/doc/nbdproxy/
+  - src: LICENSE
+    dst: /usr/share/licenses/nbdproxy/LICENSE

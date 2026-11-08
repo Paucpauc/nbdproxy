@@ -117,12 +117,13 @@ La prueba escribe en `/dev/nbd0`. Solo se ejecuta si se activa explícitamente y
 ## Publicaciones
 
 ```sh
+go install github.com/goreleaser/nfpm/v2/cmd/nfpm@v2.41.0
 ./scripts/release.sh v0.1.0
 ```
 
-Genera archivos para Linux amd64/arm64 y macOS amd64/arm64, cada uno con el binario autónomo, documentación, licencia y unidad systemd, además de sumas SHA-256 en `dist/`.
+Genera archivos para Linux amd64/arm64 y macOS amd64/arm64, cada uno con el binario autónomo, documentación, licencia y unidad systemd, paquetes DEB y RPM para Linux amd64/arm64 y sumas SHA-256 de todos los artefactos en `dist/`.
 
-Después de subir este repositorio a GitHub, enviar una etiqueta `v*` activa el flujo de publicación. Ejecuta vet y las pruebas, construye los archivos y crea un **borrador de GitHub Release** con notas generadas automáticamente. Revíselo y publíquelo desde GitHub. Los flujos de CI y publicación solo tienen permisos de lectura, salvo contents:write en el trabajo de publicación.
+Después de subir este repositorio a GitHub, enviar una etiqueta `v*` activa el flujo de publicación. Ejecuta vet y las pruebas, construye los archivos y paquetes y publica inmediatamente una GitHub Release con notas generadas automáticamente. Los flujos de CI y publicación solo tienen permisos de lectura, salvo contents:write en el trabajo de publicación.
 
 Referencia del protocolo: [especificación NBD](https://github.com/NetworkBlockDevice/nbd/blob/master/doc/proto.md).
 Licencia: MIT.

@@ -117,12 +117,13 @@ sudo env NBDPROXY_KERNEL_TEST=1 /tmp/nbdproxy.test \
 ## 发布
 
 ```sh
+go install github.com/goreleaser/nfpm/v2/cmd/nfpm@v2.41.0
 ./scripts/release.sh v0.1.0
 ```
 
-在 `dist/` 中生成 Linux amd64/arm64 和 macOS amd64/arm64 归档，每个归档包含独立二进制文件、文档、许可证和 systemd 单元，另附 SHA-256 校验和。
+在 `dist/` 中生成 Linux amd64/arm64 和 macOS amd64/arm64 归档，每个归档包含独立二进制文件、文档、许可证和 systemd 单元，同时生成 Linux amd64/arm64 的 DEB 和 RPM 软件包以及所有产物的 SHA-256 校验和。
 
-将仓库推送到 GitHub 后，推送 `v*` 标签会触发发布工作流。它执行 vet 和测试，构建归档，并创建带自动生成说明的 **GitHub Release 草稿**。请在 GitHub 上审核并发布。CI 和发布工作流仅具有读取权限，发布作业的 contents:write 除外。
+将仓库推送到 GitHub 后，推送 `v*` 标签会触发发布工作流。它执行 vet 和测试，构建归档和软件包，并立即发布带自动生成说明的 GitHub Release。CI 和发布工作流仅具有读取权限，发布作业的 contents:write 除外。
 
 协议参考：[NBD 规范](https://github.com/NetworkBlockDevice/nbd/blob/master/doc/proto.md)。
 许可证：MIT。
