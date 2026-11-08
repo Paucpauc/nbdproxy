@@ -1,5 +1,7 @@
 # nbdproxy
 
+English | [Русский](README_RU.md) | [简体中文](README_CN.md) | [Español](README_ES.md) | [Français](README_FR.md)
+
 A small, dependency-free NBD proxy that keeps the **local client socket open**
 while reconnecting to a restarted backend. Works with TCP and Unix sockets on
 both sides. Linux `nbd-client` does not need `-persist` or netlink reconnect

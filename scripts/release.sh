@@ -9,7 +9,7 @@ for target in linux/amd64 linux/arm64 darwin/amd64 darwin/arm64; do
     name=nbdproxy_${version}_${os}_${arch}
     stage=$(mktemp -d)
     CGO_ENABLED=0 GOOS="$os" GOARCH="$arch" go build -trimpath -ldflags "-s -w -X main.version=$version" -o "$stage/nbdproxy" .
-    cp README.md LICENSE "$stage/"
+    cp README*.md LICENSE "$stage/"
     cp -R packaging "$stage/"
     tar -czf "dist/$name.tar.gz" -C "$stage" .
     rm -rf "$stage"
